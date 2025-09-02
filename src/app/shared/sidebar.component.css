@@ -1,0 +1,8 @@
+
+:host { display: block; }
+
+/* Full height on medium+ screens */
+@media (min-width: 768px) {
+	:host { height: 100vh; position: sticky; top: 0; }
+}
+

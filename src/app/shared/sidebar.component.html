@@ -1,0 +1,97 @@
+<aside
+  class="hidden md:flex md:flex-col md:w-64 bg-gray-50 border-r p-4 h-full"
+>
+  <div class="mb-6 text-base font-bold">Logo</div>
+  <nav class="flex flex-col justify-between flex-1">
+    <div class="flex flex-col gap-3">
+      <a
+        routerLink="/dashboard"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          class="w-6 h-6 text-gray-800"
+        >
+          <path
+            d="M22 10V9C22 6.17157 22 4.75736 21.1213 3.87868C20.2426 3 18.8284 3 16 3H8C5.17157 3 3.75736 3 2.87868 3.87868C2.57888 4.17848 2.38137 4.54062 2.25125 5M2 9V10C2 12.8284 2 14.2426 2.87868 15.1213C3.75736 16 5.17157 16 8 16H16C18.8284 16 20.2426 16 21.1213 15.1213C21.4211 14.8215 21.6186 14.4594 21.7487 14"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+          <path
+            d="M12 19V16.5M12 19L18 21M12 19L6 21"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+
+        <span>Dashboard</span>
+      </a>
+      <a
+        routerLink="/devices"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+        >
+ <span>Devices</span></a
+      >
+      <a
+        routerLink="/groups"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+        >👥 <span>Groups</span></a
+      >
+      <a
+        routerLink="/alarms"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+        >🚨 <span>Alarms</span></a
+      >
+      <a
+        routerLink="/reports"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+        >📊 <span>Reports</span></a
+      >
+      <a
+        routerLink="/settings"
+        class="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-gray-100"
+        >⚙️ <span>Settings</span></a
+      >
+    </div>
+    <div class="flex border border-gray-200 rounded-4xl hover:bg-gray-100">
+      <a
+        routerLink="/profile"
+        class="flex items-center gap-3 px-3 py-2 rounded-full"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          class="w-8 h-8 text-gray-800"
+        >
+          <circle
+            cx="12"
+            cy="9"
+            r="3"
+            stroke="currentColor"
+            stroke-width="1.5"
+          />
+          <path
+            d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+          <path
+            d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span>Profile</span></a
+      >
+    </div>
+  </nav>
+</aside>
