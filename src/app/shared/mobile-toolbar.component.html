@@ -1,22 +1,71 @@
 <div class="fixed bottom-0 left-0 right-0 bg-[#3D2B1F] text-white p-3 flex justify-around md:hidden">
-  <a routerLink="/dashboard" class="flex flex-col items-center text-xs gap-1">
-    <div class="w-9 h-9 bg-[#6D523D] rounded-full flex items-center justify-center">🏠</div>
+  <a routerLink="/dashboard" routerLinkActive="active" #rlaDash="routerLinkActive" [routerLinkActiveOptions]="{exact:true}" class="flex flex-col items-center text-xs gap-1">
+    <div class="w-9 h-9 rounded-full flex items-center justify-center" [style.backgroundColor]="rlaDash.isActive ? '#6D523D' : null" [class.text-white]="rlaDash.isActive">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6" aria-hidden="true"><path d="M3 10.5L12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
     <span>Dashboard</span>
   </a>
-  <a routerLink="/devices" class="flex flex-col items-center text-xs gap-1">
-    <div class="w-9 h-9 bg-[#6D523D] rounded-full flex items-center justify-center">📟</div>
+  <a routerLink="/devices" routerLinkActive="active" #rlaDevices="routerLinkActive" [routerLinkActiveOptions]="{exact:true}" class="flex flex-col items-center text-xs gap-1">
+    <div class="w-9 h-9 rounded-full flex items-center justify-center" [style.backgroundColor]="rlaDevices.isActive ? '#6D523D' : null" [class.text-white]="rlaDevices.isActive">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
     <span>Devices</span>
   </a>
-  <a routerLink="/groups" class="flex flex-col items-center text-xs gap-1">
-    <div class="w-9 h-9 bg-[#6D523D] rounded-full flex items-center justify-center">👥</div>
+  <a routerLink="/groups" routerLinkActive="active" #rlaGroups="routerLinkActive" [routerLinkActiveOptions]="{exact:true}" class="flex flex-col items-center text-xs gap-1">
+    <div class="w-9 h-9 rounded-full flex items-center justify-center" [style.backgroundColor]="rlaGroups.isActive ? '#6D523D' : null" [class.text-white]="rlaGroups.isActive">
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        class="w-6 h-6"
+      >
+        <circle cx="12" cy="6" r="4" stroke-width="1.5"/>
+        <path d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M17.1973 15C17.7078 15.5883 18 16.2714 18 17C18 19.2091 15.3137 21 12 21C8.68629 21 6 19.2091 6 17C6 14.7909 8.68629 13 12 13C12.3407 13 12.6748 13.0189 13 13.0553" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
     <span>Groups</span>
   </a>
-  <a routerLink="/alarms" class="flex flex-col items-center text-xs gap-1">
-    <div class="w-9 h-9 bg-[#6D523D] rounded-full flex items-center justify-center">🚨</div>
+  <a routerLink="/alarms" routerLinkActive="active" #rlaAlarms="routerLinkActive" [routerLinkActiveOptions]="{exact:true}" class="flex flex-col items-center text-xs gap-1">
+    <div class="w-9 h-9 rounded-full flex items-center justify-center" [style.backgroundColor]="rlaAlarms.isActive ? '#6D523D' : null" [class.text-white]="rlaAlarms.isActive">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6" aria-hidden="true"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
     <span>Alarms</span>
   </a>
-  <a routerLink="/profile" class="flex flex-col items-center text-xs gap-1">
-    <div class="w-9 h-9 bg-[#6D523D] rounded-full flex items-center justify-center">🙍</div>
+  <a routerLink="/profile" routerLinkActive="active" #rlaProfile="routerLinkActive" [routerLinkActiveOptions]="{exact:true}" class="flex flex-col items-center text-xs gap-1">
+    <div class="w-9 h-9 rounded-full flex items-center justify-center" [style.backgroundColor]="rlaProfile.isActive ? '#6D523D' : null" [class.text-white]="rlaProfile.isActive">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        class="w-6 h-6 text-white"
+      >
+        <circle
+          cx="12"
+          cy="9"
+          r="3"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path
+          d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+        <path
+          d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
     <span>Profile</span>
   </a>
 </div>

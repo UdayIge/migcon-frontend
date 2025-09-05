@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadComponent: () => import('./alarms.list.page').then(m => m.AlarmListPage) },
-  { path: 'set', loadComponent: () => import('./alarms.set.page').then(m => m.AlarmSetPage) }
+  { path: 'set', loadComponent: () => import('./setAlaram/alarms.set.page').then(m => m.AlarmSetPage) }
 ];
 
 @NgModule({

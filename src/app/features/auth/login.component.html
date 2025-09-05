@@ -1,0 +1,10 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md p-6 bg-white/80 rounded-lg shadow">
+    <h2 class="text-2xl font-bold mb-4">Sign in</h2>
+    <form (ngSubmit)="submit()" class="space-y-4">
+      <input [(ngModel)]="email" name="email" type="email" placeholder="Email" class="w-full p-3 rounded border" required />
+      <input [(ngModel)]="password" name="password" type="password" placeholder="Password" class="w-full p-3 rounded border" required />
+      <button type="submit" class="w-full bg-green-600 text-white p-3 rounded">Sign in</button>
+    </form>
+  </div>
+</div>

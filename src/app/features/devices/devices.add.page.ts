@@ -1,8 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-device-add',
   standalone: true,
-  template: `<div class="p-6"><h2 class="text-2xl font-semibold">Add Device Page</h2><p class="mt-4">Placeholder for add device form.</p></div>`
+  templateUrl: './devices.add.page.html',
+  styleUrls: ['./devices.add.page.css']
 })
-export class DeviceAddPage {}
+export class DeviceAddPage {
+  private router = inject(Router);
+
+  onCancel() {
+    this.router.navigate(['/devices']);
+  }
+
+  onAdd() {
+    // TODO: wire real save; currently just navigate back to devices list
+    this.router.navigate(['/devices']);
+  }
+}

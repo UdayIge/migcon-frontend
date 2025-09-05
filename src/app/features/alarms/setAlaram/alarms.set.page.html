@@ -1,0 +1,55 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/40" aria-hidden="true" (click)="onCancel()"></div>
+
+  <div class="relative w-full max-w-md p-4" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <div class="bg-white rounded-2xl p-6 shadow-lg">
+      <h2 class="text-xl font-bold text-center mb-4">Set an Alarm</h2>
+
+      <div class="grid grid-cols-4 gap-2 text-xs text-center mb-3">
+        <div class="py-2 bg-gray-100 rounded">CH-1</div>
+        <div class="py-2 bg-gray-100 rounded">CH-2</div>
+        <div class="py-2 bg-gray-100 rounded">CH-3</div>
+        <div class="py-2 bg-gray-100 rounded">CH-4</div>
+      </div>
+
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="text-sm">Alarm HIGH HIGH</div>
+          <div class="flex gap-2">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="text-sm">Alarm HIGH</div>
+          <div class="flex gap-2">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="text-sm">Alarm LOW</div>
+          <div class="flex gap-2">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-4 gap-3">
+        <button (click)="onSave()" class="bg-green-600 text-white px-6 py-2 rounded-full">Save</button>
+        <button (click)="onCancel()" class="bg-white border px-6 py-2 rounded-full">Cancel</button>
+      </div>
+    </div>
+
+    <button (click)="onCancel()" class="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">✖️</button>
+  </div>
+</div>

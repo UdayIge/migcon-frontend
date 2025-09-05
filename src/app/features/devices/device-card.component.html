@@ -1,0 +1,73 @@
+<li class="bg-white rounded-lg p-4 shadow flex items-center justify-between">
+  <div class="flex items-start gap-4">
+    <div class="w-18 h-18 rounded flex items-center justify-center text-2xl">
+      <app-device-icon [name]="device.icon"></app-device-icon>
+    </div>
+    <div>
+      <div class="flex items-baseline gap-2">
+        <h3 class="font-semibold text-xl">{{ device.name }}</h3>
+        <span class="text-xs text-gray-500">{{ device.id }}</span>
+      </div>
+      <div class="flex flex-col gap-1 md:flex-row md:gap-5">
+        <p class="text-sm text-gray-600 flex flex-col gap-1">
+        <span>MAC ID: {{ device.mac || '—' }}</span>
+        <span>
+            <ng-container *ngIf="device.group; else noGroup">
+              <span>Group: {{ device.group }}</span>
+            </ng-container>
+            <ng-template #noGroup>
+              <span>Group: —</span>
+            </ng-template>
+        </span>
+    </p>
+      <p class="text-sm text-gray-600 flex flex-col gap-1">
+          <span> Location: {{ device.location || '—' }}</span>
+          <span>Status: <span [ngClass]="{'text-green-600': device.status === 'Active', 'text-yellow-600': device.status === 'Maintenance', 'text-gray-500': device.status === 'Inactive'}">
+        {{ device.status }}</span></span>
+
+      </p>
+      </div>
+      
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <ng-container *ngIf="selectMode; else actionButtons">
+      <input type="checkbox" [(ngModel)]="selected" (change)="selectedChange.emit(selected)" />
+    </ng-container>
+    <ng-template #actionButtons>
+      <button class="p-2 rounded hover:bg-orange-100" (click)="onEdit()">
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            class="w-6 h-6 text-gray-800"
+            >
+            <path d="M4 22H8M20 22H12" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M13.8881 3.66293L14.6296 2.92142C15.8581 1.69286 17.85 1.69286 19.0786 2.92142C20.3071 4.14999 20.3071 6.14188 19.0786 7.37044L18.3371 8.11195M13.8881 3.66293C13.8881 3.66293 13.9807 5.23862 15.3711 6.62894C16.7614 8.01926 18.3371 8.11195 18.3371 8.11195M13.8881 3.66293L7.07106 10.4799C6.60933 10.9416 6.37846 11.1725 6.17992 11.4271C5.94571 11.7273 5.74491 12.0522 5.58107 12.396C5.44219 12.6874 5.33894 12.9972 5.13245 13.6167L4.25745 16.2417M18.3371 8.11195L14.9286 11.5204M11.5201 14.9289C11.0584 15.3907 10.8275 15.6215 10.5729 15.8201C10.2727 16.0543 9.94775 16.2551 9.60398 16.4189C9.31256 16.5578 9.00282 16.6611 8.38334 16.8675L5.75834 17.7426M5.75834 17.7426L5.11667 17.9564C4.81182 18.0581 4.47573 17.9787 4.2485 17.7515C4.02128 17.5243 3.94194 17.1882 4.04356 16.8833L4.25745 16.2417M5.75834 17.7426L4.25745 16.2417" 
+                stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="p-2 rounded hover:bg-red-100" (click)="onRemove()">
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            class="w-6 h-6 text-red-600"
+        >
+            <path d="M9.17065 4C9.58249 2.83481 10.6937 2 11.9999 2C13.3062 2 14.4174 2.83481 14.8292 4" 
+            stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M20.5 6H3.49988" 
+            stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5" 
+            stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M9.5 11L10 16" 
+            stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M14.5 11L14 16" 
+            stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </ng-template>
+  </div>
+</li>
