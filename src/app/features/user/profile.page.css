@@ -1,0 +1,3 @@
+/* Simple profile page styles */
+:host { display: block; }
+input { padding: .5rem .75rem; }

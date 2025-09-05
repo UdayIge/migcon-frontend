@@ -4,8 +4,12 @@
       class="bg-[#9BB069] text-white p-4 shadow flex items-center justify-between"
     >
       <div class="flex items-center gap-3">
-        <button class="md:hidden p-2 rounded bg-white">☰</button>
-        <div class="text-sm text-white">Sunday, August 31</div>
+        <button class="md:hidden p-1 rounded " (click)="sidebarSvc.toggle()" aria-label="Open sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gray-800 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <div class="hidden md:block text-sm text-white">{{ currentDate | date: 'fullDate' }}</div>
       </div>
       <div class="text-center">
         <div class="text-base font-bold">Manage Your Devices</div>

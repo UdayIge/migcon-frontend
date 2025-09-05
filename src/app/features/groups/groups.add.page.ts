@@ -1,8 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-group-add-page',
   standalone: true,
-  template: `<div class="p-6"><h2 class="text-2xl font-semibold">Add Group Page</h2><p class="mt-4">Placeholder for add group form.</p></div>`
+  templateUrl: './groups.add.page.html',
+  styleUrls: ['./groups.add.page.css']
 })
-export class GroupAddPage {}
+export class GroupAddPage {
+  private router = inject(Router);
+
+  onCancel() { this.router.navigate(['/groups']); }
+  onAdd() { this.router.navigate(['/groups']); }
+}

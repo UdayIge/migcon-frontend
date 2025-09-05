@@ -1,0 +1,21 @@
+<div class="p-6 max-w-3xl mx-auto">
+  <div class="bg-white rounded-xl p-4 shadow-md">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-semibold">Device Reports</h2>
+      <div class="text-sm text-gray-500">Sunday, August 31</div>
+    </div>
+
+    <div class="flex items-center gap-3 mb-4">
+      <button class="px-3 py-1 bg-green-600 text-white rounded">All Devices</button>
+      <button (click)="continue()" class="px-3 py-1 border rounded">Continue</button>
+      <label class="ml-auto inline-flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll()" />
+        <span class="text-sm">Select All</span>
+      </label>
+    </div>
+
+    <div class="space-y-3">
+      <app-device-card *ngFor="let d of devices" [device]="d" [selectMode]="true" [(selected)]="d.selected" (selectedChange)="onDeviceChange()"></app-device-card>
+    </div>
+  </div>
+</div>

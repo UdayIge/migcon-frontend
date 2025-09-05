@@ -11,41 +11,24 @@
   </header>
 
   <ul class="space-y-3">
-    <li class="bg-white rounded-lg p-4 shadow flex items-center justify-between">
-      <div class="flex items-start gap-4">
-        <div class="w-14 h-14 bg-gray-100 rounded flex items-center justify-center text-2xl">🏷️</div>
-        <div>
-          <div class="flex items-baseline gap-2">
-            <h3 class="font-semibold">Incubator A</h3>
-            <span class="text-xs text-gray-500">IN-001</span>
-          </div>
-          <p class="text-xs text-gray-600 mt-1">MAC ID: 14:0C:B8:67:B7:87 · Location: Floor-2-1</p>
-          <p class="text-xs text-gray-600">Status: <span class="text-green-600">Active</span> · Group: G1</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <button class="text-orange-500">✏️</button>
-        <button class="text-red-500">🗑️</button>
-      </div>
-    </li>
-
-    <li class="bg-white rounded-lg p-4 shadow flex items-center justify-between">
-      <div class="flex items-start gap-4">
-        <div class="w-14 h-14 bg-gray-100 rounded flex items-center justify-center text-2xl">❄️</div>
-        <div>
-          <div class="flex items-baseline gap-2">
-            <h3 class="font-semibold">Freezer A</h3>
-            <span class="text-xs text-gray-500">FR-002</span>
-          </div>
-          <p class="text-xs text-gray-600 mt-1">MAC ID: 14:4A:85:AD:B6:EA · Location: Floor-3-2</p>
-          <p class="text-xs text-gray-600">Status: <span class="text-yellow-600">Maintenance</span> · Group: G2</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <button class="text-orange-500">✏️</button>
-        <button class="text-red-500">🗑️</button>
-      </div>
-    </li>
+    <app-device-card *ngFor="let d of devices" [device]="d" (edit)="onEdit($event)" (remove)="onRemove($event)"></app-device-card>
   </ul>
 
 </div>
+
+<a routerLink="add" class="fixed right-6 bottom-24 md:bottom-12 bg-[#9BB069] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    class="w-12 h-12"
+  >
+    <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" 
+          stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" 
+          stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+
+
+</a>
