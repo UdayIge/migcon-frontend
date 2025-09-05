@@ -1,0 +1,51 @@
+<div class="p-4 md:p-8 max-w-4xl mx-auto">
+  <header class="mb-4 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold">Manage Your Devices</h1>
+      <p class="text-sm text-gray-500">Overview of registered devices</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="bg-green-100 text-green-700 px-3 py-1 rounded">Filter</button>
+      <a routerLink="add" class="bg-green-600 text-white px-3 py-1 rounded">+ Add</a>
+    </div>
+  </header>
+
+  <ul class="space-y-3">
+    <li class="bg-white rounded-lg p-4 shadow flex items-center justify-between">
+      <div class="flex items-start gap-4">
+        <div class="w-14 h-14 bg-gray-100 rounded flex items-center justify-center text-2xl">🏷️</div>
+        <div>
+          <div class="flex items-baseline gap-2">
+            <h3 class="font-semibold">Incubator A</h3>
+            <span class="text-xs text-gray-500">IN-001</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-1">MAC ID: 14:0C:B8:67:B7:87 · Location: Floor-2-1</p>
+          <p class="text-xs text-gray-600">Status: <span class="text-green-600">Active</span> · Group: G1</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="text-orange-500">✏️</button>
+        <button class="text-red-500">🗑️</button>
+      </div>
+    </li>
+
+    <li class="bg-white rounded-lg p-4 shadow flex items-center justify-between">
+      <div class="flex items-start gap-4">
+        <div class="w-14 h-14 bg-gray-100 rounded flex items-center justify-center text-2xl">❄️</div>
+        <div>
+          <div class="flex items-baseline gap-2">
+            <h3 class="font-semibold">Freezer A</h3>
+            <span class="text-xs text-gray-500">FR-002</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-1">MAC ID: 14:4A:85:AD:B6:EA · Location: Floor-3-2</p>
+          <p class="text-xs text-gray-600">Status: <span class="text-yellow-600">Maintenance</span> · Group: G2</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="text-orange-500">✏️</button>
+        <button class="text-red-500">🗑️</button>
+      </div>
+    </li>
+  </ul>
+
+</div>
