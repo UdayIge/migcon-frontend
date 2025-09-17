@@ -1,10 +1,56 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-md p-6 bg-white/80 rounded-lg shadow">
-    <h2 class="text-2xl font-bold mb-4">Sign in</h2>
-    <form (ngSubmit)="submit()" class="space-y-4">
-      <input [(ngModel)]="email" name="email" type="email" placeholder="Email" class="w-full p-3 rounded border" required />
-      <input [(ngModel)]="password" name="password" type="password" placeholder="Password" class="w-full p-3 rounded border" required />
-      <button type="submit" class="w-full bg-green-600 text-white p-3 rounded">Sign in</button>
+<div class="bg-[#f0e9e5] min-h-screen relative">
+
+  <!-- Top Green Half Circle -->
+  <div class="w-full h-42 bg-[#a3b67c] rounded-b-full shadow-md relative">
+
+    <!-- Blank Box Positioned Exactly As Logo Replacement -->
+    <div class="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-gray-400 rounded-lg bg-white"></div>
+  </div>
+
+  <!-- Login Form Container -->
+  <div class="w-full max-w-md mx-auto mt-12 px-6 py-8 bg-[#f0e9e5] rounded-xl ">
+
+    <h2 class="text-2xl font-semibold text-[#6b4f3f] mb-6 text-center">Sign in</h2>
+
+    <!-- Form with Input Boxes Styled Exactly -->
+    <form class="flex flex-col gap-6">
+
+      <!-- Email Input Block -->
+      <div class="flex items-center border border-[#e0e0e0] rounded-full px-4 py-2 bg-white">
+        <span class="mr-3">📧</span>
+        <input type="email" placeholder="Email" class="flex-grow outline-none bg-transparent text-[#6b4f3f]">
+      </div>
+
+      <!-- Password Input Block -->
+      <div class="flex items-center border border-[#e0e0e0] rounded-full px-4 py-2 bg-white">
+        <span class="mr-3">🔒</span>
+        <input type="password" placeholder="Password" class="flex-grow outline-none bg-transparent text-[#6b4f3f]">
+    
+      </div>
+
+      <!-- Sign In Button -->
+      <button type="submit" class="bg-[#5a3f2f] text-white py-2 rounded-full hover:bg-[#47312a] transition">
+        Sign In →
+      </button>
+
     </form>
+
+    <!-- Social Login Icons -->
+    <div class="mt-6 text-center space-x-4">
+      <button class="inline-block p-3 rounded-full border border-[#d0d0d0] hover:bg-gray-100">f</button>
+      <button class="inline-block p-3 rounded-full border border-[#d0d0d0] hover:bg-gray-100">G</button>
+      <button class="inline-block p-3 rounded-full border border-[#d0d0d0] hover:bg-gray-100">I</button>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="mt-6 text-[#6b4f3f] text-sm text-center">
+      Don't have an account? <a href="#" class="text-orange-500 font-semibold">Sign Up</a><br>
+      <a href="#" class="text-orange-500 font-semibold">Forgot Password</a>
+    </div>
+
   </div>
 </div>
+
+
+
+
