@@ -1,2 +1,123 @@
-/* Minimal CSS - layout and minor tweaks; primary styling via Tailwind classes */
-:host { display: block; }
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #E3DBD9;
+  font-family: "Urbanist", sans-serif;
+}
+
+.menu-btn {
+  position: absolute;
+  top: 40px;
+  left: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #3d2b1f;
+  transition: transform 0.2s ease;
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+
+.topRect {
+    position: fixed;
+    top: 0;
+  width: 100%;
+  height: 110px;
+  background-color: white;
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.298);
+  border-bottom-left-radius: 30%;
+  border-bottom-right-radius: 30%;
+  margin-bottom: 20px;
+}
+
+.topRect p {
+  color: grey;
+  font-weight: 500;
+  font-size: 0.8em;
+  margin-left: 80px;
+  padding-top: 35px;
+}
+
+.topRect h2 {
+  font-weight: 700;
+  font-size: 1.5em;
+  margin-left: 81px;
+}
+
+/* Active Alarms Card */
+.activeAlarms {
+    position: relative;
+    top: 120px;
+  margin: 20px 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.activeAlarms h2 {
+  font-size: 1.15em;
+  font-weight: 800;
+  color: #2f2f2f;
+}
+
+.activeAlarms p {
+  font-size: 0.8em;
+  font-weight: 500;
+  color: rgb(41, 41, 41);
+}
+
+/* Chart Container */
+.chart-container {
+  height: 250px;
+  margin-top: 15px;
+}
+
+/* Percentage Dot & Label (top-right) */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-green-600 {
+  color: #9BB069;
+}
+
+.w-3 {
+  width: 10px;
+  height: 10px;
+}
+
+.rounded-full {
+  border-radius: 50%;
+}
+
+.bg-green-600 {
+  background-color: #9BB069;
+}
+
+.activeAlarms span {
+  font-size: 0.85em;
+  font-weight: 500;
+  color: #2f2f2f;
+  margin-left: 5px;
+}
+
+.activeAlarms section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: -90px;
+}
+
+mark{
+    position: relative;
+    right: -88px;
+    top: -58px;
+    background-color: transparent;
+}
