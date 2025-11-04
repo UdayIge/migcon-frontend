@@ -1,8 +1,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #E3DBD9;
+  background-color: #e3dbd9;
   font-family: "Urbanist", sans-serif;
+  padding-bottom: 80px;
 }
 
 .menu-btn {
@@ -20,17 +21,16 @@
   transform: scale(1.1);
 }
 
-
 .topRect {
-    position: fixed;
-    top: 0;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
   width: 100%;
-  height: 110px;
+  height: 14vh; /* was 110px */
   background-color: white;
   box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.298);
   border-bottom-left-radius: 30%;
   border-bottom-right-radius: 30%;
-  margin-bottom: 20px;
 }
 
 .topRect p {
@@ -47,44 +47,29 @@
   margin-left: 81px;
 }
 
-/* Active Alarms Card */
 .activeAlarms {
-    position: relative;
-    top: 120px;
-  margin: 20px 20px;
-  padding: 10px;
+  position: relative;
+  top: 100px;
+  margin: 20px;
+  padding: 20px;
+  margin-top: 50px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .activeAlarms h2 {
-  font-size: 1.15em;
-  font-weight: 800;
-  color: #2f2f2f;
+  font-size: 1.2em;
+  font-weight: 700;
 }
 
 .activeAlarms p {
-  font-size: 0.8em;
-  font-weight: 500;
-  color: rgb(41, 41, 41);
-}
-
-/* Chart Container */
-.chart-container {
-  height: 250px;
-  margin-top: 15px;
-}
-
-/* Percentage Dot & Label (top-right) */
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #7a7a7a;
+  font-size: 0.9em;
 }
 
 .text-green-600 {
-  color: #9BB069;
+  color: #9bb069;
 }
 
 .w-3 {
@@ -97,27 +82,114 @@
 }
 
 .bg-green-600 {
-  background-color: #9BB069;
+  background-color: #9bb069;
 }
 
-.activeAlarms span {
-  font-size: 0.85em;
-  font-weight: 500;
+mark {
+  position: absolute;
+  top: 7%;
+  right: 5%;
+  background-color: transparent;
+}
+
+.chartCont {
+  position: relative;
+  top: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.chartCont h2 {
+  font-weight: 700;
+  font-size: 1.2em;
   color: #2f2f2f;
-  margin-left: 5px;
 }
 
-.activeAlarms section{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 20px;
-    margin-left: -90px;
+.chartCont p {
+  color: #7a7a7a;
+  font-size: 0.9em;
 }
 
-mark{
-    position: relative;
-    right: -88px;
-    top: -58px;
-    background-color: transparent;
+.devicesCount {
+  position: relative;
+  top: 100px;
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Urbanist", sans-serif;
+  margin-bottom: 120px;
+}
+
+.devicesCount .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.devicesCount h2 {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: #2f2f2f;
+}
+
+.devicesCount p {
+  color: #7a7a7a;
+  font-size: 0.9em;
+}
+
+.filter-btn {
+  background-color: #9bb069;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.barChartCont {
+  margin-top: 10px;
+}
+
+.barChartCont canvas {
+  width: 100%;
+  height: 300px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+}
+
+.devicesCount {
+  border-radius: 15px;
+  background-color: #f9f7f6;
+}
+
+.filter-btn {
+  background-color: #9bb069;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.9em;
+  appearance: none; /* removes native dropdown arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+  cursor: pointer;
 }
