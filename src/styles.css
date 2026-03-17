@@ -1,1 +1,7 @@
 @import "tailwindcss";
+body {
+  font-family: "Urbanist", sans-serif;
+  height: 100vh;
+  margin: 0;
+  width: 100%;
+}

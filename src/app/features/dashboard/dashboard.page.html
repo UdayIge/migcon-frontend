@@ -1,36 +1,124 @@
-<div class="p-4 md:p-8 max-w-4xl mx-auto">
-  <header class="bg-white rounded-2xl p-4 shadow mb-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <p class="text-sm text-gray-500">Sunday, August 31</p>
-        <h1 class="text-xl md:text-2xl font-bold">Hello, Operator</h1>
-      </div>
-      <div class="text-right">
-        <p class="text-2xl font-semibold">121</p>
-        <p class="text-xs text-green-600">+12.75%</p>
-      </div>
-    </div>
-  </header>
+<!-- dashboard.component.html -->
+<div class="dashboard-wrapper">
 
-  <section class="grid gap-4">
-    <div class="bg-white rounded-xl p-4 shadow">
-      <h2 class="text-sm text-gray-600">Active Alarms Over Time</h2>
-      <div class="h-40 bg-gradient-to-b from-orange-50 to-transparent rounded mt-3 flex items-center justify-center text-orange-400">Chart placeholder</div>
+  <!-- Header -->
+  <div class="header-card">
+    <button class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-text">
+      <p class="date-label">Sunday, August 31</p>
+      <h1 class="greeting">Hello, Tanvi MJ!</h1>
+    </div>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="scroll-content">
+
+    <!-- Active Alarms Over Time Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Active Alarms Over Time</h2>
+        </div>
+        <div class="card-stats">
+          <span class="stat-number">121</span>
+          <div class="stat-badge">
+            <span class="badge-dot green"></span>
+            <span class="badge-text green-text">12.75%</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="alarmsChart"></canvas>
+        <div class="tooltip-bubble" [style.left.px]="tooltipX" [style.top.px]="tooltipY">
+          {{ tooltipValue }}
+        </div>
+      </div>
+      <div class="chart-labels">
+        <span>03</span><span>10</span><span>17</span><span>24</span><span>31</span>
+      </div>
     </div>
 
-    <div class="bg-white rounded-xl p-4 shadow flex flex-col md:flex-row gap-4">
-      <div class="flex-1">
-        <h3 class="text-sm text-gray-600">Device Status Distribution</h3>
-        <div class="h-36 bg-gradient-to-b from-pink-50 to-transparent rounded mt-3 flex items-center justify-center text-pink-500">Pie chart</div>
+    <!-- Device Status Distribution Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Device Status Distribution</h2>
+        </div>
+        <button class="filter-btn">Today <span class="chevron">&#8964;</span></button>
       </div>
-      <div class="w-full md:w-48">
-        <h4 class="text-sm text-gray-600">Summary</h4>
-        <ul class="mt-2 text-sm text-gray-700 space-y-1">
-          <li>Active Devices: 21</li>
-          <li>Inactive Devices: 16</li>
-          <li>Faulty Devices: 5</li>
-        </ul>
+      <div class="pie-section">
+        <div class="pie-wrapper">
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="legend">
+          <div class="legend-item" *ngFor="let item of deviceLegend">
+            <span class="legend-dot" [style.background]="item.color"></span>
+            <span class="legend-label">{{ item.label }}</span>
+            <span class="legend-value">{{ item.value }}</span>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+
+    <!-- Devices Count Per Group Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Devices count per group</h2>
+        </div>
+        <button class="filter-btn">Weekly <span class="chevron">&#8964;</span></button>
+      </div>
+      <div class="chart-container bar-chart-container">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Up to date card -->
+    <div class="card up-to-date-card">
+      <p class="up-to-date-title">You're up to date.</p>
+      <p class="up-to-date-sub">Navigate to find out more.</p>
+    </div>
+
+  </div><!-- end scroll-content -->
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" (click)="setActive('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+      </svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" (click)="setActive('devices')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/>
+      </svg>
+      <span>Devices</span>
+    </button>
+    <button class="nav-item" (click)="setActive('groups')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="9" cy="7" r="3"/><circle cx="15" cy="7" r="3"/>
+        <path d="M3 20c0-4 2.7-7 6-7h6c3.3 0 6 3 6 7"/>
+      </svg>
+      <span>Groups</span>
+    </button>
+    <button class="nav-item" (click)="setActive('alarms')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+      </svg>
+      <span>Alarms</span>
+    </button>
+    <button class="nav-item" (click)="setActive('profile')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
 </div>
