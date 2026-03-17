@@ -1,69 +1,124 @@
-<app-sidebar></app-sidebar>
+<!-- dashboard.component.html -->
+<div class="dashboard-wrapper">
 
-<div class="topRect">
-  <button class="menu-btn" (click)="sidebarSvc.toggle()">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      width="26"
-      height="26"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      />
-    </svg>
-  </button>
-  <p>{{ currentDay }}, {{ currentDate }}</p>
-  <h2>Hello, User!</h2>
-</div>
-<div class="activeAlarms">
-  <p>{{ currentMonth }}, {{ currentYear }}</p>
-  <h2>Active Alarms Over Time</h2>
-  <mark>
-    <p style="font-weight: 800; font-size: 1.5em; align-self: flex-end">
-      &nbsp; &nbsp; &nbsp;121
-    </p>
-    <span class="w-3 h-3 rounded-full bg-green-600 inline-block"></span>
-    <span> +12.75%</span>
-  </mark>
-  <div class="flex justify-between items-center">
-    <div class="text-right"></div>
-  </div>
-  <div class="lineChartCont">
-    <canvas id="activeAlarmsChart"></canvas>
-  </div>
-</div>
-
-<div class="chartCont">
-  <div class="header">
-    <p>{{ currentMonth }} {{ currentYear }}</p>
-    <h2>Device Status Distribution</h2>
-  </div>
-  <canvas id="alarmsPieChart"></canvas>
-</div>
-
-<div class="devicesCount">
-  <div class="header">
-    <div>
-      <p>{{ currentMonth }} {{ currentYear }}</p>
-      <h2>Devices count per group</h2>
+  <!-- Header -->
+  <div class="header-card">
+    <button class="menu-btn">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-text">
+      <p class="date-label">Sunday, August 31</p>
+      <h1 class="greeting">Hello, Tanvi MJ!</h1>
     </div>
-    <select
-      class="filter-btn"
-      [(ngModel)]="selectedPeriod"
-      (change)="onPeriodChange()"
-    >
-      <option value="weekly">Weekly</option>
-      <option value="monthly">Monthly</option>
-      <option value="yearly">Yearly</option>
-    </select>
   </div>
-  <div class="barChartCont">
-    <canvas id="devicesBarChart"></canvas>
-  </div>
+
+  <!-- Scrollable Content -->
+  <div class="scroll-content">
+
+    <!-- Active Alarms Over Time Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Active Alarms Over Time</h2>
+        </div>
+        <div class="card-stats">
+          <span class="stat-number">121</span>
+          <div class="stat-badge">
+            <span class="badge-dot green"></span>
+            <span class="badge-text green-text">12.75%</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="alarmsChart"></canvas>
+        <div class="tooltip-bubble" [style.left.px]="tooltipX" [style.top.px]="tooltipY">
+          {{ tooltipValue }}
+        </div>
+      </div>
+      <div class="chart-labels">
+        <span>03</span><span>10</span><span>17</span><span>24</span><span>31</span>
+      </div>
+    </div>
+
+    <!-- Device Status Distribution Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Device Status Distribution</h2>
+        </div>
+        <button class="filter-btn">Today <span class="chevron">&#8964;</span></button>
+      </div>
+      <div class="pie-section">
+        <div class="pie-wrapper">
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="legend">
+          <div class="legend-item" *ngFor="let item of deviceLegend">
+            <span class="legend-dot" [style.background]="item.color"></span>
+            <span class="legend-label">{{ item.label }}</span>
+            <span class="legend-value">{{ item.value }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Devices Count Per Group Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-period">August 2025</span>
+          <h2 class="card-title">Devices count per group</h2>
+        </div>
+        <button class="filter-btn">Weekly <span class="chevron">&#8964;</span></button>
+      </div>
+      <div class="chart-container bar-chart-container">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Up to date card -->
+    <div class="card up-to-date-card">
+      <p class="up-to-date-title">You're up to date.</p>
+      <p class="up-to-date-sub">Navigate to find out more.</p>
+    </div>
+
+  </div><!-- end scroll-content -->
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" (click)="setActive('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+      </svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" (click)="setActive('devices')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/>
+      </svg>
+      <span>Devices</span>
+    </button>
+    <button class="nav-item" (click)="setActive('groups')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="9" cy="7" r="3"/><circle cx="15" cy="7" r="3"/>
+        <path d="M3 20c0-4 2.7-7 6-7h6c3.3 0 6 3 6 7"/>
+      </svg>
+      <span>Groups</span>
+    </button>
+    <button class="nav-item" (click)="setActive('alarms')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+      </svg>
+      <span>Alarms</span>
+    </button>
+    <button class="nav-item" (click)="setActive('profile')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
 </div>

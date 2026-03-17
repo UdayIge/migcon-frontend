@@ -1,84 +1,203 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+// dashboard.component.ts
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  NgZone,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ Added for ngModel
-import { SidebarComponent } from '../../shared/sidebar.component';
-import { SidebarService } from '../../shared/sidebar.service';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
 @Component({
-  selector: 'app-dashboard-page',
+  selector: 'app-dashboard',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.css'],
-  imports: [CommonModule, FormsModule, SidebarComponent],
+  encapsulation: ViewEncapsulation.None,
 })
-export class DashboardPageComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
-  currentDay!: string;
-  currentDate!: string;
-  currentMonth!: string;
-  currentYear!: string;
-  selectedPeriod: 'weekly' | 'monthly' | 'yearly' = 'weekly'; // ✅ Default
+export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+  activeNav = 'dashboard';
+  tooltipX = 130;
+  tooltipY = 30;
+  tooltipValue = 16;
 
-  private lineChart: Chart | null = null;
-  private pieChart: Chart | null = null;
-  private barChart: Chart | null = null;
+  deviceLegend = [
+    { label: 'Active Devices',     value: 21, color: '#c0392b' },
+    { label: 'Inactive Devices',   value: 16, color: '#e8571a' },
+    { label: 'Unassigned Devices', value: 15, color: '#f07840' },
+    { label: 'Faulty Devices',     value: 6,  color: '#f4a07a' },
+    { label: 'Maintenance Mode',   value: 5,  color: '#fad4bc' },
+  ];
 
-  constructor(public sidebarSvc: SidebarService) {}
+  private charts: Chart[] = [];
 
-  ngOnInit() {
-    const now = new Date();
-    this.currentDay = new Intl.DateTimeFormat('en-US', {
-      weekday: 'long',
-    }).format(now);
-    this.currentDate = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }).format(now);
-    this.currentMonth = new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-    }).format(now);
-    this.currentYear = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-    }).format(now);
+  constructor(private ngZone: NgZone) {}
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.buildAlarmsChart();
+        this.buildPieChart();
+        this.buildBarChart();
+      }, 0);
+    });
   }
 
-  ngAfterViewInit() {
-    this.renderLineChart();
-    this.renderPieChart();
-    this.renderBarChart();
+  ngOnDestroy(): void {
+    this.charts.forEach((c) => c.destroy());
   }
 
-  // 🟢 Dummy data for different periods
-  private dataSets = {
-    weekly: [28, 12, 30, 17, 38, 10, 22],
-    monthly: [150, 180, 120, 220, 260, 190, 240],
-    yearly: [1200, 900, 1500, 1300, 1700, 1100, 1600],
-  };
+  setActive(tab: string): void {
+    this.activeNav = tab;
+    // Update button classes manually for standalone demo
+    document.querySelectorAll('.nav-item').forEach((el) =>
+      el.classList.remove('active')
+    );
+    const idx = ['dashboard', 'devices', 'groups', 'alarms', 'profile'].indexOf(tab);
+    if (idx >= 0) {
+      document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
+    }
+  }
 
-  renderBarChart() {
-    const ctx = document.getElementById('devicesBarChart') as HTMLCanvasElement;
-    if (!ctx) return;
+  /* ── Alarms Line Chart ── */
+  private buildAlarmsChart(): void {
+    const canvas = document.getElementById('alarmsChart') as HTMLCanvasElement;
+    if (!canvas) return;
 
-    this.barChart = new Chart(ctx, {
+    const labels = Array.from({ length: 31 }, (_, i) => i + 1);
+    const data = [
+      8, 9, 10, 9, 11, 12, 11, 10, 9, 10,
+      14, 13, 12, 14, 15, 16, 20, 24, 22, 18,
+      16, 14, 12, 14, 13, 12, 11, 12, 13, 12, 11,
+    ];
+
+    const gradient = canvas.getContext('2d')!.createLinearGradient(0, 0, 0, 160);
+    gradient.addColorStop(0, 'rgba(232, 87, 26, 0.28)');
+    gradient.addColorStop(1, 'rgba(232, 87, 26, 0.00)');
+
+    const chart = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            data,
+            borderColor: '#e8571a',
+            borderWidth: 2.5,
+            fill: true,
+            backgroundColor: gradient,
+            tension: 0.45,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#7a9a3a',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: false,
+            external: (ctx) => {
+              const tp = ctx.tooltip;
+              if (tp.opacity === 0) return;
+              this.ngZone.run(() => {
+                this.tooltipX = tp.caretX;
+                this.tooltipY = tp.caretY - 40;
+                this.tooltipValue = tp.dataPoints[0]?.raw as number;
+              });
+            },
+          },
+        },
+        scales: {
+          x: {
+            display: false,
+            grid: { display: false },
+          },
+          y: {
+            display: false,
+            grid: {
+              color: 'rgba(0,0,0,0.06)',
+              drawTicks: false,
+            },
+          },
+        },
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+      },
+    });
+
+    this.charts.push(chart);
+  }
+
+  /* ── Pie Chart ── */
+  private buildPieChart(): void {
+    const canvas = document.getElementById('pieChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const chart = new Chart(canvas, {
+      type: 'pie',
+      data: {
+        datasets: [
+          {
+            data: [21, 16, 15, 6, 5],
+            backgroundColor: [
+              '#c0392b',
+              '#e8571a',
+              '#f07840',
+              '#f4a07a',
+              '#fad4bc',
+            ],
+            borderWidth: 2,
+            borderColor: '#fff',
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+        cutout: 0,
+      },
+    });
+
+    this.charts.push(chart);
+  }
+
+  /* ── Bar Chart ── */
+  private buildBarChart(): void {
+    const canvas = document.getElementById('barChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const values = [23, 8, 26, 17, 38, 6, 22];
+    const highlight = 4; // G5 index
+
+    const chart = new Chart(canvas, {
       type: 'bar',
       data: {
         labels: ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7'],
         datasets: [
           {
-            label: 'Devices',
-            data: this.dataSets[this.selectedPeriod],
-            backgroundColor: (context) => {
-              const index = context.dataIndex;
-              return index === 4 ? '#E86D2C' : '#F7B695';
-            },
-            borderRadius: 10,
+            data: values,
+            backgroundColor: values.map((_, i) =>
+              i === highlight ? '#e8571a' : '#fad4bc'
+            ),
+            borderRadius: 6,
             borderSkipped: false,
-            barThickness: 25,
           },
         ],
       },
@@ -89,109 +208,65 @@ export class DashboardPageComponent
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: (context) => ` ${context.parsed.y}`,
+              label: (ctx) => ` ${ctx.parsed.y}`,
             },
-            backgroundColor: '#9bb069',
-            titleColor: '#fff',
-            bodyColor: '#fff',
-            displayColors: false,
           },
         },
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: '#555', font: { size: 12 } },
+            ticks: {
+              color: '#b0a090',
+              font: { size: 11, weight: 500 },
+            },
+            border: { display: false },
           },
           y: {
-            grid: { color: 'rgba(0,0,0,0.05)' },
-            ticks: { color: '#888', stepSize: 15 },
+            grid: {
+              color: 'rgba(0,0,0,0.06)',
+              drawTicks: false,
+            },
+            border: { display: false, dash: [4, 4] },
+            ticks: {
+              color: '#b0a090',
+              font: { size: 10 },
+              stepSize: 15,
+              padding: 4,
+            },
+            min: 0,
+            max: 45,
           },
         },
       },
-    });
-  }
-
-  // 🔄 Update chart data when dropdown changes
-  onPeriodChange() {
-    if (this.barChart) {
-      this.barChart.data.datasets[0].data = this.dataSets[this.selectedPeriod];
-      this.barChart.update();
-    }
-  }
-
-  renderLineChart() {
-    const ctx = document.getElementById(
-      'activeAlarmsChart'
-    ) as HTMLCanvasElement;
-    if (!ctx) return;
-
-    this.lineChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['03', '10', '17', '24', '31'],
-        datasets: [
-          {
-            label: 'Active Alarms',
-            data: [8, 16, 25, 18, 13],
-            borderColor: '#fe844b',
-            backgroundColor: 'rgba(255,102,0,0.1)',
-            tension: 0.4,
-            fill: true,
-            pointBackgroundColor: '#FF6600',
-            pointRadius: 4,
+      plugins: [
+        {
+          id: 'barTooltipLabel',
+          afterDraw(chart) {
+            const meta = chart.getDatasetMeta(0);
+            const ctx2 = chart.ctx;
+            meta.data.forEach((bar, i) => {
+              if (i !== highlight) return;
+              const val = (chart.data.datasets[0].data[i] as number).toString();
+              const x = bar.x;
+              const y = bar.y - 14;
+              ctx2.save();
+              ctx2.fillStyle = '#7a9a3a';
+              ctx2.beginPath();
+              const w = 32, h = 22, r = 6;
+              ctx2.roundRect(x - w / 2, y - h, w, h, r);
+              ctx2.fill();
+              ctx2.fillStyle = '#fff';
+              ctx2.font = 'bold 12px Nunito, sans-serif';
+              ctx2.textAlign = 'center';
+              ctx2.textBaseline = 'middle';
+              ctx2.fillText(val, x, y - h / 2);
+              ctx2.restore();
+            });
           },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
         },
-      },
+      ],
     });
-  }
 
-  renderPieChart() {
-    const ctx = document.getElementById('alarmsPieChart') as HTMLCanvasElement;
-    if (!ctx) return;
-
-    this.pieChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: [
-          'Active Devices',
-          'Inactive Devices',
-          'Unassigned Devices',
-          'Faulty Devices',
-          'Maintenance Mode',
-        ],
-        datasets: [
-          {
-            data: [21, 16, 15, 6, 5],
-            backgroundColor: [
-              '#D95F2A',
-              '#E98750',
-              '#F2A272',
-              '#F6BDA1',
-              '#FADAC8',
-            ],
-            borderWidth: 0,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'right' },
-        },
-      },
-    });
-  }
-
-  ngOnDestroy() {
-    this.lineChart?.destroy();
-    this.pieChart?.destroy();
-    this.barChart?.destroy();
+    this.charts.push(chart);
   }
 }
